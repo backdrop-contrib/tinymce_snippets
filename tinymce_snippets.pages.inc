@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Form callback and theme for TinyMCE snippets module.
+ * Form callback and theme for TinyMCE snippets module admin UI.
  */
 
 /**

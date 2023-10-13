@@ -69,7 +69,7 @@ function tinymce_snippets_menu() {
  * @param string $name
  *   The snippet's machine_name.
  *
- * @return bool
+ * @return array|false
  */
 function tinymce_snippet_load($name) {
   $item = config_get('tinymce_snippets.snippets', "items.$name");
