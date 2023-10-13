@@ -5,11 +5,12 @@ TinyMCE plugin to insert pre-defined snippets into content, using a dialog.
 ![Preview in dialog](https://raw.githubusercontent.com/backdrop-contrib/tinymce_snippets/1.x-1.x/screenshots/preview-in-dialog.webp)
 
 When editors should be able to insert structured content, styled snippets,
-or the like, only by selecting from a list of available options, this plugin
-is for you.
+or the like, only by selecting from a list of available options, but this
+content should be fully editable, this plugin is for you.
 
 Maybe comparable to CKEditor templates, but with admin interface and token
- support for snippets (tokens get replaced on insert).
+ support for snippets (global tokens, they get replaced on preview/insert).
+
 No coding skills necessary to create and administer snippets.
 
 ![Admin overview](https://raw.githubusercontent.com/backdrop-contrib/tinymce_snippets/1.x-1.x/screenshots/admin-overview.webp)
