@@ -1,7 +1,8 @@
 type = module
 name = TinyMCE snippets plugin
 description = Insert predefined HTML snippets into content using a dialog.
+backdrop = 1.x
 
 dependencies[] = tinymce
 
-backdrop = 1.x
+configure = admin/config/content/tinymce-snippets

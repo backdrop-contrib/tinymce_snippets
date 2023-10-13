@@ -281,7 +281,6 @@ function tinymce_snippets_form_submit($form, &$form_state) {
   );
 
   $config = config('tinymce_snippets.snippets');
-  // @todo may not exist?
   $items = $config->get('items');
   $items[$values['name']] = $item;
   $config->set('items', $items);
