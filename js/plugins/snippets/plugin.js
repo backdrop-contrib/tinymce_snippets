@@ -114,7 +114,7 @@ snippetsTools.getDialogConfig = function () {
         },
         {
           type: 'htmlpanel',
-          html: '<div id="snippet-description"></div><div>&nbsp;</div>'
+          html: '<div id="snippet-description">&nbsp;</div><div>&nbsp;</div>'
         },
         {
           name: 'preview',
