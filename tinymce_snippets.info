@@ -1,0 +1,7 @@
+type = module
+name = TinyMCE snippets plugin
+description = Insert predefined HTML snippets into content using a dialog.
+
+dependencies[] = tinymce
+
+backdrop = 1.x

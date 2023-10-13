@@ -1,0 +1,127 @@
+<?php
+/**
+ * @file
+ */
+
+/**
+ * Implements hook_tinymce_external_plugins().
+ */
+function tinymce_snippets_tinymce_external_plugins($format) {
+  $module_url = base_path() . backdrop_get_path('module', 'tinymce_snippets');
+  $plugins = array(
+    'snippets' => array(
+      'plugin_path' => $module_url . '/js/plugins/snippets/plugin.js',
+      'buttons' => array(
+        'snippets' => array(
+          'icon' => 'snippet',
+          'tooltip' => 'Insert snippet',
+        ),
+      ),
+      'icons' => array(
+        'snippet' => 'insert-snippet.svg',
+      ),
+      'variables' => array(
+        'snippetsCurrentFormat' => $format->format,
+      ),
+    ),
+  );
+  return $plugins;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function tinymce_snippets_menu() {
+  $items['admin/config/content/tinymce-snippets'] = array(
+    'title' => 'TinyMCE snippets',
+    'page callback' => 'backdrop_get_form',
+    'page arguments' => array('tinymce_snippets_overview_form'),
+    'access arguments' => array('administer filters'),
+    'description' => 'Administer HTML snippets available in the TinyMCE snippets plugin.',
+    'file' => 'tinymce_snippets.pages.inc',
+  );
+  $items['admin/config/content/tinymce-snippets/add'] = array(
+    'title' => 'Add snippet',
+    'page callback' => 'backdrop_get_form',
+    'page arguments' => array('tinymce_snippets_form'),
+    'access arguments' => array('administer filters'),
+    'file' => 'tinymce_snippets.pages.inc',
+  );
+  $items['admin/config/content/tinymce-snippets/%tinymce_snippet/edit'] = array(
+    'title' => 'Edit snippet',
+    'page callback' => 'backdrop_get_form',
+    'page arguments' => array('tinymce_snippets_form', 4),
+    'access arguments' => array('administer filters'),
+    'file' => 'tinymce_snippets.pages.inc',
+  );
+  $items['admin/config/content/tinymce-snippets/%tinymce_snippet/delete'] = array(
+    'title' => 'Delete snippet',
+    'page callback' => 'backdrop_get_form',
+    'page arguments' => array('tinymce_snippets_delete_confirm', 4),
+    'access arguments' => array('administer filters'),
+    'file' => 'tinymce_snippets.pages.inc',
+  );
+
+  return $items;
+}
+
+/**
+ * Auto-loader for menu item wildcard.
+ */
+function tinymce_snippet_load($name) {
+  $item = config_get('tinymce_snippets.snippets', "items.$name");
+  return ($item) ? $item : FALSE;
+}
+
+/**
+ * Implements hook_config_info().
+ */
+function tinymce_snippets_config_info() {
+  $prefixes['tinymce_snippets.snippets'] = array(
+    'label' => t('TinyMCE snippets'),
+    'group' => t('Configuration'),
+  );
+  return $prefixes;
+}
+
+/**
+ * Implements hook_filter_js_settings_alter().
+ */
+function tinymce_snippets_filter_js_settings_alter(&$settings) {
+  foreach ($settings as $filter_name => $options) {
+    if ($options['editor'] == 'tinymce') {
+      $snippets['none'] = array(
+        'label' => t('- Select snippet -'),
+        'snippet' => '',
+      );
+      $items = config_get('tinymce_snippets.snippets', 'items');
+      if ($items) {
+        global $language;
+        foreach ($items as $name => $values) {
+          // Filter by langcode.
+          if ($values['langcode'] != 'und' && $values['langcode'] != $language->langcode) {
+            unset($items[$name]);
+            continue;
+          }
+          $items[$name]['label'] = check_plain($values['label']);
+          $items[$name]['description'] = check_plain($values['description']);
+          $items[$name]['snippet'] = token_replace($values['snippet'], array(), array('language' => $language));
+        }
+        $snippets += $items;
+      }
+      $settings[$filter_name]['editorSnippets'] = $snippets;
+    }
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function tinymce_snippets_theme() {
+  return array(
+    'tinymce_snippets_overview_form_table' => array(
+      'render element' => 'form',
+      'file' => 'tinymce_snippets.pages.inc',
+    ),
+  );
+}
