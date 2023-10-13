@@ -46,18 +46,21 @@ function tinymce_snippets_menu() {
     'title' => 'Add snippet',
     'page callback' => 'backdrop_get_form',
     'page arguments' => array('tinymce_snippets_form'),
+    'access arguments' => array('administer filters'),
     'file' => 'tinymce_snippets.pages.inc',
   );
   $items['admin/config/content/tinymce-snippets/%tinymce_snippet/edit'] = array(
     'title' => 'Edit snippet',
     'page callback' => 'backdrop_get_form',
     'page arguments' => array('tinymce_snippets_form', 4),
+    'access arguments' => array('administer filters'),
     'file' => 'tinymce_snippets.pages.inc',
   );
   $items['admin/config/content/tinymce-snippets/%tinymce_snippet/delete'] = array(
     'title' => 'Delete snippet',
     'page callback' => 'backdrop_get_form',
     'page arguments' => array('tinymce_snippets_delete_confirm', 4),
+    'access arguments' => array('administer filters'),
     'file' => 'tinymce_snippets.pages.inc',
   );
 

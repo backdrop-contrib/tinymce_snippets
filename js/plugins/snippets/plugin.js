@@ -88,7 +88,11 @@ snippetsTools.getDialogConfig = function () {
       api.setData({
         preview: snippetsTools.wrap(snippets[value]['snippet']),
       });
-      document.getElementById('snippet-description').innerHTML = snippets[value]['description'];
+      let description = '&nbsp;';
+      if (snippets[value]['description']) {
+        description = snippets[value]['description'];
+      }
+      document.getElementById('snippet-description').innerHTML = description;
     },
     onSubmit: function (api) {
       const name = api.getData().snippetname;
