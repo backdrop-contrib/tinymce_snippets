@@ -104,7 +104,7 @@ function tinymce_snippets_filter_js_settings_alter(&$settings) {
             continue;
           }
           $items[$name]['label'] = check_plain($values['label']);
-          $items[$name]['description'] = $values['description'];
+          $items[$name]['description'] = check_plain($values['description']);
           $items[$name]['snippet'] = token_replace($values['snippet'], array(), array('language' => $language));
         }
         $snippets += $items;
