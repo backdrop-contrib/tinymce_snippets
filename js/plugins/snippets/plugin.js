@@ -7,7 +7,7 @@
 tinymce.PluginManager.add('snippets', function (editor, url) {
   editor.ui.registry.addButton('snippets', {
     icon: 'snippet',
-    tooltip: 'Insert snippet',
+    tooltip: editor.options.get('snippetsTooltip'),
     onAction: function () {
       let config = snippetsTools.getDialogConfig();
       editor.windowManager.open(config);
@@ -16,7 +16,7 @@ tinymce.PluginManager.add('snippets', function (editor, url) {
 
   editor.ui.registry.addMenuItem('snippets', {
     icon: 'snippet',
-    text: 'Insert snippet',
+    text: editor.options.get('snippetsTooltip'),
     onAction: function () {
       let config = snippetsTools.getDialogConfig();
       editor.windowManager.open(config);
@@ -76,7 +76,7 @@ snippetsTools.getItemslist = function () {
 snippetsTools.getDialogConfig = function () {
   let snippets = snippetsTools.getSnippets();
   let dialogConfig = {
-    title: 'Insert snippet',
+    title: tinymce.activeEditor.options.get('snippetsTooltip'),
     size: 'medium',
     initialData: {
       snippetname: 'none',

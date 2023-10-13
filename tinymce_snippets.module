@@ -15,7 +15,7 @@ function tinymce_snippets_tinymce_external_plugins($format) {
       'buttons' => array(
         'snippets' => array(
           'icon' => 'snippet',
-          'tooltip' => 'Insert snippet',
+          'tooltip' => t('Insert snippet'),
         ),
       ),
       'icons' => array(
@@ -23,6 +23,7 @@ function tinymce_snippets_tinymce_external_plugins($format) {
       ),
       'variables' => array(
         'snippetsCurrentFormat' => $format->format,
+        'snippetsTooltip' => t('Insert snippet'),
       ),
     ),
   );
@@ -94,7 +95,7 @@ function tinymce_snippets_filter_js_settings_alter(&$settings) {
   foreach ($settings as $filter_name => $options) {
     if ($options['editor'] == 'tinymce') {
       $snippets['none'] = array(
-        'label' => t('- Select snippet -'),
+        'label' => t('- Please choose -'),
         'snippet' => '',
       );
       $items = config_get('tinymce_snippets.snippets', 'items');
