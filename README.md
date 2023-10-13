@@ -8,6 +8,7 @@ is for you.
 
 Maybe comparable to CKEditor templates, but with admin interface and token
  support for snippets (tokens get replaced on insert).
+No coding skills necessary to create and administer snippets.
 
 ## Installation
 
