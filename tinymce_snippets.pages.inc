@@ -167,7 +167,7 @@ function tinymce_snippets_form(array $form, array &$form_state, array $item = ar
     '#required' => TRUE,
     '#description' => t('This field supports tokens.') . ' ' . theme('token_tree_link'),
   );
-  $form['#attached']['js'][] = backdrop_get_path('module', 'tinymce_snippets') .  '/js/tinymce-snippets-admin.js';
+  $form['#attached']['js'][] = backdrop_get_path('module', 'tinymce_snippets') . '/js/tinymce-snippets-admin.js';
 
   global $language;
   // ... @todo or maybe "translation"?
