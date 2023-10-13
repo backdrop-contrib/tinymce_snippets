@@ -7,7 +7,7 @@
 /**
  * Theme callback for the overview form to render a draggable table.
  */
-function theme_tinymce_snippets_overview_form_table($variables) {
+function theme_tinymce_snippets_overview_form_table(array $variables) {
   $addlink = l('Add snippet', 'admin/config/content/tinymce-snippets/add');
 
   $header = array(
@@ -227,7 +227,7 @@ function tinymce_snippets_form(array $form, array &$form_state, array $item = ar
 /**
  * Validation callback for snippet forms.
  */
-function tinymce_snippets_form_validate($form, &$form_state) {
+function tinymce_snippets_form_validate(array $form, array &$form_state) {
   $snippet = $form_state['values']['snippet']['value'];
   $dom = new DOMDocument();
 
@@ -270,7 +270,7 @@ function tinymce_snippets_form_validate($form, &$form_state) {
 /**
  * Submission handler for snippet form.
  */
-function tinymce_snippets_form_submit($form, &$form_state) {
+function tinymce_snippets_form_submit(array $form, array &$form_state) {
   $values = $form_state['values'];
   $item = array(
     'name' => $values['name'],
@@ -323,7 +323,7 @@ function tinymce_snippets_delete_confirm(array $form, array &$form_state, array 
 /**
  * Submission handler to delete a snippet.
  */
-function tinymce_snippets_delete_confirm_submit($form, &$form_state) {
+function tinymce_snippets_delete_confirm_submit(array $form, array &$form_state) {
   $config = config('tinymce_snippets.snippets');
   $config->clear('items.' . $form_state['values']['snippet']);
   $config->save();
@@ -333,6 +333,11 @@ function tinymce_snippets_delete_confirm_submit($form, &$form_state) {
 
 /**
  * Helper function for snippet machine name form item.
+ *
+ * @parm string $name
+ *   Snippet name from form submission.
+ *
+ * @return bool
  */
 function _tinymce_snippet_name_exists($name) {
   $existing_items = config_get('tinymce_snippets.snippets', 'items');
