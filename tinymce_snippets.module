@@ -1,6 +1,7 @@
 <?php
 /**
  * @file
+ * TinyMCE snippets module main code.
  */
 
 /**
@@ -63,7 +64,12 @@ function tinymce_snippets_menu() {
 }
 
 /**
- * Auto-loader for menu item wildcard.
+ * Auto-loader for tinymce_snippet item wildcard.
+ *
+ * @param string $name
+ *   The snippet's machine_name.
+ *
+ * @return bool
  */
 function tinymce_snippet_load($name) {
   $item = config_get('tinymce_snippets.snippets', "items.$name");
