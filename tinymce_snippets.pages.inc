@@ -9,6 +9,9 @@
  */
 function theme_tinymce_snippets_overview_form_table(array $variables) {
   $addlink = l('Add snippet', 'admin/config/content/tinymce-snippets/add');
+  $languages = language_list(FALSE, TRUE);
+  $languages['und'] = t('Any');
+  $multilingual = module_exists('locale') && language_multilingual();
 
   $header = array(
     array('data' => t('Label')),
@@ -17,6 +20,9 @@ function theme_tinymce_snippets_overview_form_table(array $variables) {
     array('data' => t('Weight')),
     array('data' => t('Action')),
   );
+  if (!$multilingual) {
+    unset($header[2]);
+  }
 
   $rows = array();
   $form = $variables['form'];
@@ -36,7 +42,10 @@ function theme_tinymce_snippets_overview_form_table(array $variables) {
       'data' => check_plain($data['description']),
       'class' => array('priority-low'),
     );
-    $row_item[] = array('data' => $data['langcode']);
+    if ($multilingual) {
+      $language_name = $languages[$data['langcode']];
+      $row_item[] = array('data' => $language_name);
+    }
     $row_item[] = array(
       'data' => backdrop_render($weight_data['weight']),
     );
@@ -170,8 +179,7 @@ function tinymce_snippets_form(array $form, array &$form_state, array $item = ar
   $form['#attached']['js'][] = backdrop_get_path('module', 'tinymce_snippets') . '/js/tinymce-snippets-admin.js';
 
   global $language;
-  // ... @todo or maybe "translation"?
-  if (module_exists('locale')) {
+  if (module_exists('locale') && language_multilingual()) {
     $language_options = array();
     foreach (language_list(TRUE) as $langcode => $lang) {
       $option_label = $lang->name;
