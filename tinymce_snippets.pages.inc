@@ -174,6 +174,7 @@ function tinymce_snippets_form(array $form, array &$form_state, array $item = ar
     '#resizable' => FALSE,
     '#default_value' => isset($item['snippet']) ? $item['snippet'] : '',
     '#required' => TRUE,
+    '#format' => isset($item['edit_format']) ? $item['edit_format'] : NULL,
     '#description' => t('This field supports tokens.') . ' ' . theme('token_tree_link'),
   );
   $form['#attached']['js'][] = backdrop_get_path('module', 'tinymce_snippets') . '/js/tinymce-snippets-admin.js';
@@ -285,6 +286,7 @@ function tinymce_snippets_form_submit(array $form, array &$form_state) {
     'label' => $values['label'],
     'description' => $values['description'],
     'langcode' => $values['langcode'],
+    'edit_format' => $values['snippet']['format'],
     'snippet' => $values['snippet']['value'],
   );
 
