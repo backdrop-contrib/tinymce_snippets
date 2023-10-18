@@ -259,8 +259,19 @@ function tinymce_snippets_form_validate(array $form, array &$form_state) {
 
   $xpath = new DOMXpath($dom);
   $invalid_tags = $xpath->query('//style | //script');
-  $has_on = $xpath->query('//*[starts-with(name(@*),"on")]');
-  if ($invalid_tags->count() || $has_on->count()) {
+
+  $has_on = FALSE;
+  $with_attributes = $xpath->query('//*[@*]');
+  foreach ($with_attributes as $node) {
+    foreach ($node->attributes as $attribute) {
+      if (strpos($attribute->name, 'on') === 0) {
+        $has_on = TRUE;
+        break 2;
+      }
+    }
+  }
+
+  if ($invalid_tags->count() || $has_on) {
     form_set_error('snippet', t('Script tags, style tags or on* attributes are invalid in snippets.'));
   }
   $href_tags = $xpath->query('//*[@href]');
