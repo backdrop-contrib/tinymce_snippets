@@ -18,7 +18,7 @@ No coding skills necessary to create and administer snippets.
 ## Installation
 
 - Install this module using the official [Backdrop CMS instructions](https://docs.backdropcms.org/documentation/extend-with-modules)
-- Add the plugin and toolbar button (or menu item) to your editor profile
+- Add the toolbar button to your custom editor profile: ![Button icon of this plugin](https://raw.githubusercontent.com/backdrop-contrib/tinymce_snippets/1.x-1.x/js/plugins/snippets/icons/insert-snippet.svg)
 
 ## Issues
 
